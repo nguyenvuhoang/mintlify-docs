@@ -1,0 +1,39 @@
+---
+title: "Authentication"
+---
+
+
+## Authentication Overview
+
+To interact with the API endpoints in this documentation, you need to authenticate using a static token. This token is required for all API requests that involve sensitive operations (such as creating identities, updating data, or accessing protected resources). The token ensures that only authorized users can perform these actions.
+
+This section will guide you through the process of generating a static token using the feature [Generate Static Token](../api-reference/endpoint/genstactictoken). Once generated, you can use this token in the `Authorization` header for all subsequent API requests.
+
+---
+
+## Step 1: Generate a Static Token
+1. **Prepare your credentials**: These credentials are typically provided by your system administrator.
+
+## Step 2: Login and Generate Dynamic Token
+
+The [LoginOpenAPI](../api-reference/endpoint/getokencbs) endpoint allows you to authenticate and generate a dynamic token. Follow these steps to obtain a token:
+
+1. **Prepare your credentials**: You will need a `loginName` and `password` to authenticate. These credentials are typically provided by your system administrator.
+2. **Send a request to the endpoint**: Use the form below to send a `POST` request to the `/api/auth/loginopenapi` endpoint with your credentials.
+3. **Retrieve the token**: If the request is successful, the response will contain a `token` field under the `result` object. Copy this token for use in other API requests.
+
+### Request Details
+
+**Method**: POST  
+**URI**: `/api/auth/loginopenapi`
+
+#### Headers
+- **Authorization**: `Bearer <your-static-token>` (Required)  
+  You need to provide a pre-authorized static token to access this endpoint. Contact your system administrator for this token.
+
+#### Request Body
+```json
+{
+  "loginName": "your-username",
+  "password": "your-password"
+}

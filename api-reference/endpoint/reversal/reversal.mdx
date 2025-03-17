@@ -1,0 +1,17 @@
+---
+title: "FOF_GET_TXBODY"
+openapi: "POST /api/coregateway/post/reversal"
+---
+
+## Reversal transaction
+
+The function is reversal transaction for transfer and top-up. When a transfer or top-up transaction have been error on client but success on core banking, 3rd party system will automatic post a reversal transaction to core banking to reverse exist transaction. It’ll be used for cases:
+> Lost connection during processing transaction on core banking.
+
+> Transaction have been timeout when posting to core banking.
+
+> Soap client or Restful got error and cannot got response from core gateway.
+
+> Transaction successful on core banking but error on 3rd party
+
+Note: This function will call automatic (when got error) and control by system, bank staff cannot reversal a transaction manually by 3rd party system. For case lost connection, 3rd party will retry 3 times until reverse successful.

@@ -1,72 +1,792 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "JITS O24OpenAPI CBG API",
+    "description": "JITS O24OpenApi CBG API. Current version 4.0",
+    "version": "4.0"
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
+      "url": "https://localhost:5040",
+      "description": "Server at https://localhost:5040"
+    },
     {
-      "bearerAuth": []
+      "url": "https://52.221.50.219:5040",
+      "description": "Server at https://52.221.50.219:5040"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+    "/api/auth/loginopenapi": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthOpenAPIRequestModel"
+              }
             }
           }
-        ],
+        },
         "responses": {
-          "200": {
-            "description": "Plant response",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
                 }
               }
             }
           }
         }
-      },
+      }
+    },
+    "/api/cache/clearcache": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "tags": [
+          "Cache"
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cache/clearall": {
+      "post": {
+        "tags": [
+          "Cache"
+        ],
+        "parameters": [
+          {
+            "name": "adminPassword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coregateway/post": {
+      "post": {
+        "tags": [
+          "Coregateway"
+        ],
+        "summary": "Post",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": ".",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/O24OpenAPICBGatewayRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/createstatictoken": {
+      "post": {
+        "tags": [
+          "Session"
+        ],
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/encrypt": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secretKey",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "encryptType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "3DES"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/decrypt": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secretKey",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "encryptType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "3DES"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/copytable": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "connectionString",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceTable",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetTable",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/copytablefromdifferentserver": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "sourceConnectionString",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceTable",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetTable",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetConnectionString",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/exportmultifile": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "entityName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/exportfile": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "entityName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tool/uploaddata": {
+      "post": {
+        "tags": [
+          "Tool"
+        ],
+        "parameters": [
+          {
+            "name": "filedConstraintsJson",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coregateway/post/get_info": {
+      "post": {
+        "tags": [
+          "Coregateway"
+        ],
+        "summary": "GET_INFO Transaction",
+        "description": "Retrieves information from the core banking system (e.g., account balance, transaction history).",
+        "operationId": "_GET_INFO",
+        "requestBody": {
+          "description": "Request body for GET_INFO transaction",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/O24OpenAPICBGatewayRequestModel"
+              },
+              "example": {
+                "transaction_code": "BALANCE_INQUIRY",
+                "transaction_type": "GET_INFO",
+                "data": {
+                  "account_number": "123456789"
+                },
+                "session_id": "session-123",
+                "end_to_end": "e2e-getinfo-001",
+                "execution_id": "999cfbea-29e4-4e7e-8e94-503bf2cf730f",
+                "channel_id": "LDP"
               }
             }
           },
@@ -74,21 +794,81 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "401": {
+            "description": "Unauthorized",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
                 }
               }
             }
@@ -96,57 +876,233 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
+    "/api/coregateway/post/fo": {
+      "post": {
+        "tags": [
+          "Coregateway"
         ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+        "summary": "FO Transaction",
+        "description": "Books a transfer transaction in the core banking system (e.g., payment, fund transfer).",
+        "operationId": "_FO",
+        "requestBody": {
+          "description": "Request body for FO transaction",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/O24OpenAPICBGatewayRequestModel"
+              },
+              "example": {
+                "transaction_code": "TRANSFER",
+                "transaction_type": "FO",
+                "data": {
+                  "amount": 500,
+                  "from_account": "123456789",
+                  "to_account": "987654321"
+                },
+                "session_id": "session-123",
+                "end_to_end": "e2e-fo-002",
+                "execution_id": "f5bf9cf2-27f4-406a-9aa8-46109c7ae98d",
+                "channel_id": "LDP"
+              }
+            }
           },
-          "400": {
-            "description": "unexpected error",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
+    },
+    "/api/coregateway/post/reversal": {
       "post": {
-        "description": "Information about a new plant added to the store",
+        "tags": [
+          "Coregateway"
+        ],
+        "summary": "REVERSAL Transaction",
+        "description": "Reverses a previous transaction in the core banking system.",
+        "operationId": "_REVERSAL",
         "requestBody": {
-          "description": "Plant added to the store",
+          "description": "Request body for REVERSAL transaction",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/O24OpenAPICBGatewayRequestModel"
+              },
+              "example": {
+                "transaction_code": "PAYMENT_REVERSAL",
+                "transaction_type": "REVERSAL",
+                "data": {
+                  "original_transaction_id": "txn-001",
+                  "amount": 1000.5
+                },
+                "session_id": "session-123",
+                "end_to_end": "e2e-reversal-003",
+                "execution_id": "37fd0594-dab5-4f3a-a90f-e354a0a0b488",
+                "channel_id": "LDP"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseModelO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectO24OpenAPICBGatewayResponseModel"
+                }
+              }
+            }
           }
         }
       }
@@ -154,64 +1110,166 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "AuthOpenAPIRequestModel": {
         "required": [
-          "name"
+          "loginName",
+          "password"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "password": {
+            "minLength": 1,
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "loginName": {
+            "minLength": 1,
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+      "LoginResponseModel": {
         "type": "object",
         "properties": {
-          "error": {
+          "session": {
+            "type": "string",
+            "nullable": true
+          },
+          "workingdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "refreshtoken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginResponseModelO24OpenAPICBGatewayResponseModel": {
+        "type": "object",
+        "properties": {
+          "error_code": {
             "type": "integer",
             "format": "int32"
           },
-          "message": {
-            "type": "string"
+          "error_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "error_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "error_source": {
+            "type": "string",
+            "nullable": true
+          },
+          "execution_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "result": {
+            "$ref": "#/components/schemas/LoginResponseModel"
           }
-        }
+        },
+        "additionalProperties": false
+      },
+      "O24OpenAPICBGatewayRequestModel": {
+        "required": [
+          "channel_id",
+          "data",
+          "end_to_end",
+          "execution_id",
+          "session_id",
+          "transaction_code",
+          "transaction_type"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction_code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The unique code identifying the transaction."
+          },
+          "transaction_type": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The type of transaction being executed.\r\nIndicates the category of the transaction, 3 type using: GET_INFO / FO / REVERSAL. Must be provided for all requests."
+          },
+          "data": {
+            "description": "The payload containing transaction-specific data.\r\nThis field holds the detailed information required for the transaction, such as amount, account number, etc. It can vary based on the transaction type.\r\nExample: { \"amount\": 1000, \"account\": \"123456789\" }"
+          },
+          "session_id": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The session identifier for the current user session geneate by CBS.\r\nObtained from the login response and used to track the user's session across requests."
+          },
+          "end_to_end": {
+            "minLength": 1,
+            "type": "string",
+            "description": "A unique end-to-end identifier for the transaction.\r\nUsed to trace the transaction from initiation to completion across systems. Should be unique for each request."
+          },
+          "execution_id": {
+            "minLength": 1,
+            "type": "string",
+            "description": "A unique identifier for tracking the execution of this request.\r\nGenerated by the client to monitor and debug the request. Typically a GUID."
+          },
+          "channel_id": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the channel initiating the request.\r\nSpecifies the source channel, defaults to \"LDP\" (Landing Page). Other examples: \"MOBILE\", \"WEB\"."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the request model for O24 OpenAPI CBGateway operations."
+      },
+      "ObjectO24OpenAPICBGatewayResponseModel": {
+        "type": "object",
+        "properties": {
+          "error_code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "error_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "error_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "error_source": {
+            "type": "string",
+            "nullable": true
+          },
+          "execution_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "result": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "Bearer": {
+        "type": "apiKey",
+        "description": "**Bearer Token Authorization**:\r\n                    Enter your token in the format `Bearer {token}` to authenticate requests. This API uses two types of Bearer tokens with distinct purposes:\r\n                    - **Static Token**:\r\n                      - **Purpose**: Used for the `/api/auth/loginopenapi` endpoint to initiate authentication.\r\n                      - **How to obtain**: Pre-configured token provided by the system administrator (contact support@jits.com.vn).\r\n                      - **Example**: `Bearer static-token-123456789`\r\n                      - **Note**: This token have been provided by JITS Company.\r\n                    - **Dynamic Token (JWT)**:\r\n                      - **Purpose**: Used for all subsequent endpoints after successful login, requiring user-specific permissions.\r\n                      - **How to obtain**: Obtained from the `/api/auth/loginopenapi` endpoint with valid credentials (LoginName and Password).\r\n                      - **Example**: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`\r\n                      - **Note**: Token expires based on the configured lifetime; refresh using the refresh token if provided.",
+        "name": "Authorization",
+        "in": "header"
       }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
