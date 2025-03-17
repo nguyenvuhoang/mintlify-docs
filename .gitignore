@@ -1,0 +1,4 @@
+node_modules/
+dist/          # Thư mục build (nếu dùng build local)
+*.log          # Các file log
+*.env          # File môi trường nhạy cảm
