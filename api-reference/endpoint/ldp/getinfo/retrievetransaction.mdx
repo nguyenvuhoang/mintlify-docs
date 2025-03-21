@@ -1,0 +1,38 @@
+---
+title: "FUNC_LDP003"
+openapi: "POST /api/coregateway/post/get_info"
+---
+
+## FUNC_LDP003: Retrieves Transaction Information
+
+This endpoint retrieves and confirms transaction details, verifying whether the transaction was successful.
+
+### Body Request Fields for API Retrieves Customer Information (KEY BODY)
+
+#### REQUEST BODY 
+
+| ID  | Field                 | Type   | Value                                |
+|-----|-----------------------|--------|--------------------------------------|
+| 1   | transaction_code      | String | **FUNC_LDP003**                     |
+| 2   | transaction_type      | String | **GET_INFO**                        |
+| 3   | session_id            | String | 00000195-74d1-6042-0000-019574d1604b |
+| 4   | end_to_end            | String | eb1bc19e-27f7-4f22-97a5-48563eb09ecf |
+| 5   | **data.TRANSACTIONREF** | String | 202202021832                        |
+
+#### RESPONSE BODY
+
+The following table describes the fields in the response body returned by the API after processing the request:
+
+| ID  | Field              | Type   | Value Example                     |
+|-----|--------------------|--------|-----------------------------------|
+| 1   | error_code         | Number | 0                                 |
+| 2   | error_description  | String | Transaction successfully!         |
+| 3   | error_name         | String | TRANSACTION_SUCCESSFULLY          |
+| 4   | error_source       | String | CBGW                              |
+| 5   | exection_id        | String | e169d261-3d62-4a82-a748-5bd04af581ad |
+| 6   | result.status      | String | S                                 |
+
+##### Status Field Description
+- **result.status**: Indicates the status of the transaction.
+  - `S`: Success
+  - `F`: Fail

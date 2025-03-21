@@ -780,7 +780,7 @@
                 "$ref": "#/components/schemas/O24OpenAPICBGatewayRequestModel"
               },
               "example": {
-                "transaction_code": "BALANCE_INQUIRY",
+                "transaction_code": "FUNC_LDP001",
                 "transaction_type": "GET_INFO",
                 "data": {
                   "account_number": "123456789"
