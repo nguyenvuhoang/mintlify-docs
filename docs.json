@@ -43,21 +43,25 @@
               {
                 "group": "LDP",
                 "pages": [
-                  "api-reference/ldp/overview"
-                ]
-              },
-              {
-                "group": "FO",
-                "pages": [
-                  "api-reference/endpoint/fo/fundtransfer",
-                  "api-reference/endpoint/fo/fundtransferddgl",
-                  "api-reference/endpoint/fo/fundtransfergldd"
-                ]
-              },
-              {
-                "group": "REVERSAL",
-                "pages": [
-                  "api-reference/endpoint/reversal/reversal"
+                  "api-reference/endpoint/ldp/overview",
+                  {
+                    "group": "GET_INFO",
+                    "pages": [
+                      "api-reference/endpoint/ldp/getinfo/retrievecustomerinfo"
+                    ]
+                  },
+                  {
+                    "group": "FUND TRANSFER",
+                    "pages": [
+                      "api-reference/endpoint/fo/fundtransfergldd"
+                    ]
+                  },
+                  {
+                    "group": "REVERSAL",
+                    "pages": [
+                      "api-reference/endpoint/reversal/reversal"
+                    ]
+                  }
                 ]
               }
             ]

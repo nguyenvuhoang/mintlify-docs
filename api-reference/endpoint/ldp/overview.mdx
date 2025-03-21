@@ -1,1 +1,48 @@
-![title](/images/LDPEMI.svg)
+
+
+
+# System Architecture Description: LDP and EMI
+
+## Overview
+
+The system consists of two main components: **LDB** (Lao Development Bank) and **EMI** (Ekphathana Microfinance Institution), designed to connect and exchange data with each other via APIs. This architecture ensures security through the use of **JWT (JSON Web Token)** for authentication and a **Firewall** to protect data flows between the two systems.
+
+The diagram below illustrates how the components within the system interact with each other:
+
+![LDP and EMI Architecture Diagram](/images/LDPEMI.svg)
+
+## Main Components
+
+### 1.  **LDB** (Lao Development Bank)
+- **API**: The primary interface of LDP, allowing end-user devices (computers, smartphones) to send requests to the system.
+- **Core Banking**: The core system that handles banking operations, including account management, transactions, and other financial activities.
+- **End-user Devices**: Users can access the system through computers or smartphones.
+
+### 2. **EMI** (Ekphathana Microfinance Institution)
+- **API**: The interface of EMI, which receives requests from LDP and sends responses after processing.
+- **Core Banking**: The core system of EMI, responsible for handling account-related operations and transactions on the EMI side.
+
+### 3. Security and Authentication
+- **Token Service (JWT)**: A token service generates and validates JSON Web Tokens (JWT) to authenticate requests between LDP and EMI, ensuring secure communication.
+- **Firewall**: A firewall is implemented between the two systems to monitor and filter incoming and outgoing traffic, adding an additional layer of security.
+
+## Business Operations
+
+### Money Transfer from LDP to EMI
+One of the key operations supported by this architecture is the transfer of money from LDP to EMI. The process is detailed in the steps below:
+
+#### Steps
+1. **Authentication: Request to get JWT**
+   - 1 or 2: Input contract number to get customer information.
+   - EMI API returns customer info based on the contract number.
+   
+2. **Making transaction with LDP account**
+   - Debit from the customer’s account to EMI’s account.
+
+3. **After making the transaction, LDP sends Reference, contract number, and amount to update on EMI System.**
+
+
+## Conclusion
+
+The LDP and EMI systems are designed to work seamlessly together, enabling secure and efficient financial transactions. The use of JWT for authentication and a firewall for security ensures that data exchanges between the two systems are protected, making this architecture suitable for handling sensitive operations like money transfers.
+

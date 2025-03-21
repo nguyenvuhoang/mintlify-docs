@@ -1,0 +1,20 @@
+---
+title: "FUNC_LDP001"
+openapi: "POST /api/coregateway/post/get_info"
+---
+
+## FUNC_LDP001: Retrive Customer Detail Information
+
+This endpoint retrieves detailed information about a Customer (Contract) account based on the provided Contract number.
+
+### Body Request Fields for API retrieves customer information (KEY BODY)
+
+#### BODY
+
+| ID  | Field            | Type   | Value                                |
+|-----|------------------|--------|----------------------------------------------|
+| 1   | transaction_code | String | **FUNC_LDP001**                                  |
+| 2   | transaction_type | String | **GET_INFO**                                     |
+| 3   | session_id       | String | 00000195-74d1-6042-0000-019574d1604b         |
+| 4   | end_to_end       | String | eb1bc19e-27f7-4f22-97a5-48563eb09ecf         |
+| 5   | **data.CONTRACTNO**  | String | 000601000976078                              |

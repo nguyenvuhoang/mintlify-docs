@@ -1,8 +1,39 @@
 ---
-title: "IB00015"
+title: "LDP002"
 openapi: "POST /api/coregateway/post/fo"
 ---
 
-## Fund transfer (GL to Deposit)
+# Fund transfer (LDP to EMI)
 
-The function will perform in bank funds transfer from GL account to casa account
+## Overview
+
+This document describes the structure of the payload sent from **LDB** (Lao Development Bank) and **EMI** (Ekphathana Microfinance Institution) after a transaction is completed. The payload contains details about the transaction, such as account numbers, amount, fees, description, and reference, which EMI uses to update its system.
+
+## Transaction Update Payload Fields
+
+The following table lists the fields included in the payload sent from LDP to EMI for updating the transaction on the EMI system:
+
+| ID  | Field          | Type   | Value Example                     |
+|-----|----------------|--------|-----------------------------------|
+| 1   | DDACCTNO       | String | 000601000976078                   |
+| 2   | GLACCTNO       | String | 000000113112000000123             |
+| 3   | AMOUNT         | Number | 100                               |
+| 4   | FEESENDERAMT   | Number | 0                                 |
+| 5   | DESCS          | String | Fund transfer Deposit to Accounting |
+| 6   | TRANSACTIONREF | String | 202202021832                      |
+
+### Field Descriptions
+- **DDACCTNO**: The account number of the customer (debtor) in the LDP system.
+- **GLACCTNO**: The general ledger account number associated with the transaction.
+- **AMOUNT**: The transaction amount to be transferred.
+- **FEESENDERAMT**: The fee amount charged to the sender (if applicable).
+- **DESCS**: A description of the transaction.
+- **TRANSACTIONREF**: A unique reference number for the transaction.
+
+## Usage in the LDP-EMI Workflow
+
+This payload is typically sent as part of the final step in the money transfer process from LDP to EMI. After the transaction is successfully executed on the LDP side (e.g., debiting the customer’s account), LDP sends this data to EMI to update the corresponding account and transaction records. The process aligns with the following step in the workflow:
+
+- **Step 3: After making the transaction, LDP sends Reference, contract number, and amount to update on EMI System.**
+
+This ensures that both systems remain synchronized and that the transaction is accurately reflected in EMI's records.
