@@ -41,13 +41,9 @@
                 ]
               },
               {
-                "group": "GET_INFO",
+                "group": "LDP",
                 "pages": [
-                  "api-reference/endpoint/getinfo/getworkingdate",
-                  "api-reference/endpoint/getinfo/getdemandepositaccountdetail",
-                  "api-reference/endpoint/getinfo/getfixedepositaccountdetail",
-                  "api-reference/endpoint/getinfo/getministatement",
-                  "api-reference/endpoint/getinfo/getaccounthistory"
+                  "api-reference/ldp/overview"
                 ]
               },
               {
